@@ -1,0 +1,178 @@
+Enter password: ************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 181
+Server version: 8.0.32 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+UC 1 : Ability to create a Address Book Service DB
+
+mysql> CREATE DATABASE AddressBookServicess;
+Query OK, 1 row affected (0.01 sec)
+
+==========================================================================================
+
+
+UC 2 :  Ability to create a Address Book Table with first and last names, address, city, state, zip, phone number and email as its attributes.
+
+
+mysql> use AddressBookServicess;
+Database changed
+mysql> CREATE TABLE AddressBook(first VARCHAR(55),LastName VARCHAR(55),addressVARCHAR(55),city VARCHAR(55),state VARCHAR(55),Zip int,phone_number VARCHAR(55),email VARCHAR(55));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(55),city VARCHAR(55),state VARCHAR(55),Zip int,phone_number VARCHAR(55),email V' at line 1
+mysql> CREATE TABLE addressbook(firstname varchar(55),lastname varchar(40),address varchar(55),city varchar(55), state varchar(55), zip int, phone varchar(55), email varchar(55));
+Query OK, 0 rows affected (0.03 sec)
+
+==========================================================================================
+
+UC 3 : Ability to insert new Contacts to Address Book
+
+
+mysql> INSERT INTO addressbook(firstname,lastname,address,city,state,zip,phone,email) values('Praveen','Kumar','Banashankari','Bengaluru','Karnataka',560061,'1234356543','abc@gmail.com'));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> INSERT INTO addressbook(firstname,lastname,address,city,state,zip,phone,email) values('Praveen','Kumar','Banashankari','Bengaluru','Karnataka',560061,'1234356543','abc@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+
+===========================================================================================
+
+UC 4 : Ability to edit existing contact person using their name ...
+mysql> Update addressbook set phone=2344568239 where name=Praveen;
+ERROR 1054 (42S22): Unknown column 'name' in 'where clause'
+mysql> Update addressbook set phone=2344568239 where name='Praveen';
+ERROR 1054 (42S22): Unknown column 'name' in 'where clause'
+mysql> Update addressbook set phone=2344568239 where Firstname='Praveen';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from addressbook;
++-----------+----------+--------------+-----------+-----------+--------+------------+---------------+
+| firstname | lastname | address      | city      | state     | zip    | phone      | email         |
++-----------+----------+--------------+-----------+-----------+--------+------------+---------------+
+| Praveen   | Kumar    | Banashankari | Bengaluru | Karnataka | 560061 | 2344568239 | abc@gmail.com |
++-----------+----------+--------------+-----------+-----------+--------+------------+---------------+
+1 row in set (0.00 sec)
+
+===========================================================================================
+
+UC 5 : Ability to delete a person using person's name
+
+
+mysql> DELETE addressbook where firstname='Praveen'
+    -> DELETE addressbook where firstname='Praveen';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where firstname='Praveen'
+DELETE addressbook where firstname='Praveen'' at line 1
+mysql> DELETE addressbook where firstname='Praveen';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where firstname='Praveen'' at line 1
+mysql> DELETE from addressbook where firstname='Praveen';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from addressbook;
+Empty set (0.00 sec)
+
+mysql> CREATE TABLE AddressBook(first VARCHAR(55),LastName VARCHAR(55),addressVARCHAR(55),city VARCHAR(55),state VARCHAR(55),Zip int,phone_number VARCHAR(55),email VARCHAR(55));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(55),city VARCHAR(55),state VARCHAR(55),Zip int,phone_number VARCHAR(55),email V' at line 1
+mysql> CREATE TABLE AddressBook(first VARCHAR(55),LastName VARCHAR(55),addressVARCHAR(55),city VARCHAR(55),state VARCHAR(55),Zip int,phone_number VARCHAR(55),email VARCHAR(55);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(55),city VARCHAR(55),state VARCHAR(55),Zip int,phone_number VARCHAR(55),email V' at line 1
+mysql>  CREATE TABLE addressbook(firstname varchar(55),lastname varchar(40),address varchar(55),city varchar(55), state varchar(55), zip int, phone varchar(55), email varchar(55));
+ERROR 1050 (42S01): Table 'addressbook' already exists
+mysql>  CREATE TABLE addressbooks(firstname varchar(55),lastname varchar(40),address varchar(55),city varchar(55), state varchar(55), zip int, phone varchar(55), email varchar(55));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO addressbooks(firstname,lastname,address,city,state,zip,phone,email) values('Praveen','Kumar','Banashankari','Bengaluru','Karnataka',560061,'1234356543','abc@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from addressbooks;
++-----------+----------+--------------+-----------+-----------+--------+------------+---------------+
+| firstname | lastname | address      | city      | state     | zip    | phone      | email         |
++-----------+----------+--------------+-----------+-----------+--------+------------+---------------+
+| Praveen   | Kumar    | Banashankari | Bengaluru | Karnataka | 560061 | 1234356543 | abc@gmail.com |
++-----------+----------+--------------+-----------+-----------+--------+------------+---------------+
+1 row in set (0.00 sec)
+
+
+=========================================================================================
+
+UC 6 : Ability to Retrieve Person belonging to a City or State from the Address Book
+
+mysql> select * from addressbooks where city='Bengaluru';
++-----------+----------+--------------+-----------+-----------+--------+------------+---------------+
+| firstname | lastname | address      | city      | state     | zip    | phone      | email         |
++-----------+----------+--------------+-----------+-----------+--------+------------+---------------+
+| Praveen   | Kumar    | Banashankari | Bengaluru | Karnataka | 560061 | 1234356543 | abc@gmail.com |
++-----------+----------+--------------+-----------+-----------+--------+------------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from addressbooks where state='Karnataka';
++-----------+----------+--------------+-----------+-----------+--------+------------+---------------+
+| firstname | lastname | address      | city      | state     | zip    | phone      | email         |
++-----------+----------+--------------+-----------+-----------+--------+------------+---------------+
+| Praveen   | Kumar    | Banashankari | Bengaluru | Karnataka | 560061 | 1234356543 | abc@gmail.com |
++-----------+----------+--------------+-----------+-----------+--------+------------+---------------+
+1 row in set (0.00 sec)
+
+=========================================================================================
+
+UC 7 : Ability to understand the size of address book by City and State
+
+mysql> select count(*) from addressbooks where city = 'Bengaluru';
++----------+
+| count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
+========================================================================================
+
+UC 8 : Ability to retrieve entries sorted alphabetically by Person’s name for a given city
+
+
+mysql> SELECT * FROM addressbooks WHERE city = 'bengaluru' ORDER BY firstname desc;
++-----------+----------+--------------+-----------+-----------+--------+------------+---------------+
+| firstname | lastname | address      | city      | state     | zip    | phone      | email         |
++-----------+----------+--------------+-----------+-----------+--------+------------+---------------+
+| Praveen   | Kumar    | Banashankari | Bengaluru | Karnataka | 560061 | 1234356543 | abc@gmail.com |
++-----------+----------+--------------+-----------+-----------+--------+------------+---------------+
+1 row in set (0.00 sec)
+
+=========================================================================================
+
+UC 9 : Ability to identify each Address Book with name and Type.
+
+
+
+mysql>  ALTER TABLE addressbooks ADD type varchar(55);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> update addressbooks set type='Salary' where firstname='Praveen';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+==========================================================================================
+
+UC 10 : Ability to get number of contact persons i.e. count by type
+
+mysql> SELECT COUNT(*) FROM addressbooks WHERE type = 'proffession';
++----------+
+| COUNT(*) |
++----------+
+|        0 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(*) FROM addressbooks WHERE type = 'salary';
++----------+
+| COUNT(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
